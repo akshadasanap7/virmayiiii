@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Letter 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(-45deg,#ff758f,#ff4d6d,#c9184a,#7209b7);
+    background-size:400% 400%;
+    animation:gradientBG 12s ease infinite;
+    color:white;
+    position:relative;
+}
+
+/* Romantic blur overlay */
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1), transparent 40%);
+    backdrop-filter:blur(40px);
+    z-index:-1;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ================= NAVBAR ================= */
+nav{
+    position:fixed;
+    width:100%;
+    top:0;
+    padding:18px;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    backdrop-filter:blur(25px);
+    background:rgba(255,255,255,0.15);
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 5px 30px rgba(0,0,0,0.4);
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#ffd6e0;
+    transform:scale(1.1);
+}
+
+/* ================= MAIN CARD ================= */
+.container{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    max-width:700px;
+    padding:50px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(25px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    text-align:center;
+    animation:fadeUp 2s ease;
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(60px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+    font-size:42px;
+    margin-bottom:25px;
+}
+
+/* Smooth fade typing */
+.typing{
+    font-size:18px;
+    line-height:1.8;
+    min-height:150px;
+    animation:fadeText 2s ease;
+}
+
+@keyframes fadeText{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* ================= GLOW BUTTON ================= */
+.btn{
+    margin-top:30px;
+    padding:14px 30px;
+    border-radius:50px;
+    border:none;
+    font-size:15px;
+    font-weight:600;
+    background:white;
+    color:#c9184a;
+    cursor:pointer;
+    transition:0.4s;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,255,255,0.7);}
+    70%{box-shadow:0 0 25px 15px rgba(255,255,255,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
+}
+
+.btn:hover{
+    transform:scale(1.1);
+}
+
+/* ================= FLOATING HEARTS ================= */
+.heart{
+    position:absolute;
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* ================= SPARKLES ================= */
+.sparkle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    animation:sparkleAnim 3s infinite;
+}
+
+@keyframes sparkleAnim{
+    0%,100%{opacity:0;}
+    50%{opacity:1;}
+}
+
+/* ================= MUSIC BUTTON ================= */
+.music-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:rgba(255,255,255,0.2);
+    padding:15px;
+    border-radius:50%;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    font-size:22px;
+    transition:0.3s;
+}
+
+.music-btn.active{
+    animation:rotate 4s linear infinite;
+}
+
+@keyframes rotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="letter.html">Love Letter</a>
+    <a href="memories.html">Memories</a>
+    <a href="surprise.html">Surprise</a>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h1>To My Forever ❤️</h1>
+        <div class="typing" id="typing"></div>
+
+        <!-- FIXED SPELLING -->
+        <button class="btn" onclick="window.location.href='meomries.html'">
+            Our Memories 📸
+        </button>
+    </div>
+</div>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mp3">
+</audio>
+
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+<script>
+
+/* ================= TYPING EFFECT ================= */
+const message = `You are the best thing that ever happened to me.
+Every moment with you feels magical.
+Your smile is my favorite place.
+Your voice is my comfort.
+Your love is my strength.
+
+On your birthday, I just want you to know —
+I choose you. Always. 💖`;
+
+let index = 0;
+const speed = 35;
+
+function typeEffect(){
+    if(index < message.length){
+        document.getElementById("typing").innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeEffect, speed);
+    }
+}
+typeEffect();
+
+/* ================= FLOATING HEARTS ================= */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = Math.random() > 0.5 ? "💗" : "🤍";
+    heart.style.left = Math.random()*100+"vw";
+    heart.style.fontSize = (Math.random()*20+15)+"px";
+    heart.style.animationDuration = (Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},6000);
+}
+setInterval(createHeart,400);
+
+/* ================= SPARKLES ================= */
+function createSparkle(){
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("sparkle");
+    sparkle.style.left = Math.random()*100+"vw";
+    sparkle.style.top = Math.random()*100+"vh";
+    document.body.appendChild(sparkle);
+    setTimeout(()=>{sparkle.remove();},3000);
+}
+setInterval(createSparkle,300);
+
+/* ================= MUSIC CONTROL ================= */
+const music = document.getElementById("bgMusic");
+const musicBtn = document.querySelector(".music-btn");
+
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        musicBtn.classList.add("active");
+    }else{
+        music.pause();
+        musicBtn.classList.remove("active");
+    }
+}
+
+</script>
+
+</body>
+</html>
